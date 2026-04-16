@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Interactive Learning System</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .container { width: 800px; max-width: 100%; }
+  h1 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+  .subtitle { text-align: center; color: #888; font-size: 14px; margin-bottom: 48px; }
+  .flow { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .step { display: flex; align-items: flex-start; gap: 24px; position: relative; padding-bottom: 40px; }
+  .step:last-child { padding-bottom: 0; }
+  .step-left { width: 56px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+  .step-number { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; position: relative; z-index: 2; }
+  .step:nth-child(1) .step-number { background: #6EE7B7; color: #0a0a0a; }
+  .step:nth-child(2) .step-number { background: #93C5FD; color: #0a0a0a; }
+  .step:nth-child(3) .step-number { background: #FCD34D; color: #0a0a0a; }
+  .step:nth-child(4) .step-number { background: #F9A8D4; color: #0a0a0a; }
+  .step:nth-child(5) .step-number { background: #C4B5FD; color: #0a0a0a; }
+  .step-line { width: 3px; flex-grow: 1; min-height: 40px; position: relative; z-index: 1; }
+  .step:nth-child(1) .step-line { background: linear-gradient(to bottom, #6EE7B7, #93C5FD); }
+  .step:nth-child(2) .step-line { background: linear-gradient(to bottom, #93C5FD, #FCD34D); }
+  .step:nth-child(3) .step-line { background: linear-gradient(to bottom, #FCD34D, #F9A8D4); }
+  .step:nth-child(4) .step-line { background: linear-gradient(to bottom, #F9A8D4, #C4B5FD); }
+  .step-content { flex: 1; padding-top: 12px; }
+  .step-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  .step:nth-child(1) .step-title { color: #6EE7B7; }
+  .step:nth-child(2) .step-title { color: #93C5FD; }
+  .step:nth-child(3) .step-title { color: #FCD34D; }
+  .step:nth-child(4) .step-title { color: #F9A8D4; }
+  .step:nth-child(5) .step-title { color: #C4B5FD; }
+  .step-desc { color: #aaa; font-size: 15px; line-height: 1.7; }
+  .step-detail { margin-top: 12px; background: #161616; border-radius: 12px; padding: 16px 20px; border-left: 3px solid; }
+  .step:nth-child(1) .step-detail { border-color: #6EE7B7; }
+  .step:nth-child(2) .step-detail { border-color: #93C5FD; }
+  .step:nth-child(3) .step-detail { border-color: #FCD34D; }
+  .step:nth-child(4) .step-detail { border-color: #F9A8D4; }
+  .step:nth-child(5) .step-detail { border-color: #C4B5FD; }
+  .step-detail code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; color: #ddd; line-height: 1.8; }
+  .loop-arrow { margin-top: 32px; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 20px; border: 2px dashed #444; border-radius: 16px; }
+  .loop-arrow .loop-text { color: #C4B5FD; font-size: 16px; font-weight: 600; }
+  .loop-arrow .loop-desc { color: #888; font-size: 13px; }
+  .loop-icon { font-size: 32px; animation: spin 3s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+  .badge-ai { background: #1e3a2f; color: #6EE7B7; }
+  .badge-human { background: #2d1f3d; color: #C4B5FD; }
+  .badge-auto { background: #3d2f1f; color: #FCD34D; }
+  .graduation { margin-top: 32px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; border: 1px solid #333; text-align: center; }
+  .graduation h3 { font-size: 18px; color: #6EE7B7; margin-bottom: 8px; }
+  .graduation p { color: #888; font-size: 14px; line-height: 1.6; }
+  .tools { margin-top: 32px; display: flex; justify-content: center; gap: 24px; }
+  .tool-tag { padding: 8px 20px; border-radius: 8px; background: #1a1a1a; border: 1px solid #333; font-size: 14px; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>AI Interactive Learning System</h1>
+  <p class="subtitle">Adaptive learning powered by Claude Code + Obsidian</p>
+
+  <div class="flow">
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">AI Generates Deep Article <span class="badge badge-ai">AI</span></div>
+        <div class="step-desc">
+          Not a textbook summary. Like a knowledgeable friend explaining<br>
+          what genuinely fascinates them. Real examples, real opinions.
+        </div>
+        <div class="step-detail">
+          <code>
+            e.g., 01-what-is-antifragility.md<br>
+            &rarr; Hydra, vaccines, barbell strategy...<br>
+            &rarr; Every concept has examples, judgments, opinions
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">You Answer Questions <span class="badge badge-human">YOU</span></div>
+        <div class="step-desc">
+          3 questions at the end: comprehension + application + extension.<br>
+          Write in your own words. Not fill-in-the-blank.
+        </div>
+        <div class="step-detail">
+          <code>
+            Q: Can you think of something antifragile in your life?<br>
+            A: My AI feedback loop system... (your real answer)
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">AI Assesses Mastery <span class="badge badge-auto">AUTO</span></div>
+        <div class="step-desc">
+          AI reads your answers. Per-concept assessment: Mastered / Fuzzy / Not mastered.
+        </div>
+        <div class="step-detail">
+          <code>
+            &check; Fragile vs Robust vs Antifragile &mdash; Mastered<br>
+            &excl; Real-world antifragile examples &mdash; Fuzzy (examples lack precision)<br>
+            &cross; Barbell strategy &mdash; Not mastered<br>
+            &cross; Optimal stress vs fatal shock &mdash; Not mastered
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">AI Adapts Next Lesson <span class="badge badge-ai">AI</span></div>
+        <div class="step-desc">
+          First responds to your answers (what's right, what's off),<br>
+          then focuses on Fuzzy and Not mastered concepts.<br>
+          Follows YOUR comprehension, not the book's chapter order.
+        </div>
+        <div class="step-detail">
+          <code>
+            &rarr; Opening: Your example was on the right track but lacked precision...<br>
+            &rarr; Body: Deep dive into barbell strategy + optimal stress<br>
+            &rarr; End: 3 new questions
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">5</div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Repeat Until All Mastered <span class="badge badge-auto">AUTO</span></div>
+        <div class="step-desc">
+          Each cycle, the Fuzzy and Not mastered items shrink.<br>
+          All Mastered &rarr; Graduation.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loop-arrow">
+    <span class="loop-icon">&#x21bb;</span>
+    <div>
+      <div class="loop-text">Adaptive Loop</div>
+      <div class="loop-desc">Every round adapts to your real understanding, not a fixed syllabus</div>
+    </div>
+  </div>
+
+  <div class="graduation">
+    <h3>Graduation</h3>
+    <p>
+      All concepts Mastered &rarr; AI generates graduation notes (in YOUR words)<br>
+      Archived to your knowledge base. Learning process preserved in course folder.
+    </p>
+  </div>
+
+  <div class="tools">
+    <span class="tool-tag">Claude Code</span>
+    <span class="tool-tag">Obsidian</span>
+    <span class="tool-tag">$20/month</span>
+  </div>
+</div>
+</body>
+</html>
