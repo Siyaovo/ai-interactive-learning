@@ -1,9 +1,9 @@
 # AI Interactive Learning System
 
-> An adaptive learning system powered by Claude Code + Obsidian. AI generates deep articles, you answer questions, AI assesses your mastery and adapts the next lesson to your understanding. Repeat until graduation.
+> An adaptive learning system powered by Claude Code or Codex, plus Obsidian. AI generates deep articles, you answer questions, AI assesses your mastery and adapts the next lesson to your understanding. Repeat until graduation.
 
-**Cost: $20/month (Claude Pro subscription)**
-**Tools: Claude Code + Obsidian (or any markdown editor)**
+**Cost: whatever you already pay for Claude Code (Claude Pro or Max) or Codex (a ChatGPT plan)**
+**Tools: Claude Code or Codex, plus Obsidian (or any markdown editor)**
 
 ---
 
@@ -31,13 +31,18 @@ The key difference from textbooks or courses: **the system doesn't follow chapte
 
 ## Quick Start (3 minutes)
 
-**Prerequisites**: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed ($20/month Claude Pro)
+**Prerequisites**: either one of these, whichever you already use.
+
+- [Claude Code](https://docs.claude.com/en/docs/claude-code) (Claude Pro or Max)
+- Codex (a ChatGPT plan): `npm install -g @openai/codex` (or `brew install codex`), then run `codex login` once
 
 ```bash
 git clone https://github.com/siyaovo/ai-interactive-learning.git
 cd ai-interactive-learning
-claude
+claude      # or: codex
 ```
+
+Prefer a desktop app or editor? Open the `ai-interactive-learning` folder in the Claude desktop app (Code) or the Codex app / IDE extension instead. The first time, it may ask whether to trust the folder; say yes.
 
 Then type:
 
@@ -45,14 +50,14 @@ Then type:
 I want to learn [topic]. Teach me.
 ```
 
-That's it. Claude reads the CLAUDE.md automatically and starts generating your first lesson.
+That's it. The rules live in `AGENTS.md`: Codex reads it automatically, and Claude Code loads it through `CLAUDE.md`. You don't need to explain anything; it starts generating your first lesson.
 
 ### What happens next
 
-1. Claude generates a deep article in `my-courses/[topic]/01-....md`
+1. The AI generates a deep article in `my-courses/[topic]/01-....md`
 2. Open the file, read it, answer the 3 questions at the bottom
-3. Come back to Claude and say **"I'm done"**
-4. Claude evaluates your answers, gives feedback, generates the next lesson
+3. Come back to the AI and say **"I'm done"**
+4. It evaluates your answers, writes its feedback into the lesson file, and generates the next lesson
 5. Repeat until you graduate
 
 ### See an example lesson
@@ -66,8 +71,8 @@ Check [`example/causal-inference/01-correlation-is-not-causation.md`](example/ca
 ```
 ai-interactive-learning/
 ├── README.md                <- You're reading this
-├── CLAUDE.md                <- System instructions (Claude reads this automatically)
-├── AGENTS.md                <- For Codex users; points to CLAUDE.md
+├── AGENTS.md                <- The rules (Codex reads this automatically)
+├── CLAUDE.md                <- Imports AGENTS.md for Claude Code
 ├── system-flow.html         <- Visual workflow diagram (open in browser)
 ├── example/                 <- See what a real lesson looks like
 │   └── causal-inference/
@@ -117,7 +122,7 @@ Your answer:
 
 ## Mastery Assessment
 
-After each lesson, Claude outputs:
+After each lesson, the AI outputs:
 
 ```
 ### Mastery Assessment (Round N)
@@ -140,9 +145,9 @@ After each lesson, Claude outputs:
 
 ## Built-in Safety Nets
 
-- **Review rounds**: Every 3 lessons, Claude revisits fuzzy concepts with new scenarios
+- **Review rounds**: Every 3 lessons, the AI revisits fuzzy concepts with new scenarios
 - **30-day review card**: Generated at graduation, prompts you to check retention a month later
-- **Complete dialogue preserved**: Your answers + Claude's feedback are saved in each lesson file
+- **Complete dialogue preserved**: Your answers + the AI's feedback are saved in each lesson file
 
 ---
 
