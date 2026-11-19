@@ -148,3 +148,11 @@ At graduation, AI generates a `[topic-name]-30-day-review.md` file containing:
 The user opens this file 30 days later, writes their answers, tells AI "review done". AI responds and updates graduation notes.
 
 **Why 30-day review exists:** Right after graduation you feel like you understand everything. But real understanding requires time and practice. Coming back after 30 days reveals what truly stuck versus what was just temporarily memorized.
+
+---
+
+## Learning Rhythm
+
+- **One concept per lesson.** Each lesson should take 20–40 minutes to read and answer. If a topic is bigger, split it into two lessons instead of front-loading a long article.
+- **Track progress with evidence.** In the topic folder, record where each concept stands: "read / practised / verified mastery". Having read an article, or having AI-generated code, does not count as mastery.
+- **Teach code to beginners.** For technical topics, first say what the code does, its inputs and outputs, and whether it runs as-is. Then show it in a normal code block with a comment on every line explaining the syntax and how data moves.

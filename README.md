@@ -67,6 +67,7 @@ Check [`example/causal-inference/01-correlation-is-not-causation.md`](example/ca
 ai-interactive-learning/
 ├── README.md                <- You're reading this
 ├── CLAUDE.md                <- System instructions (Claude reads this automatically)
+├── AGENTS.md                <- For Codex users; points to CLAUDE.md
 ├── system-flow.html         <- Visual workflow diagram (open in browser)
 ├── example/                 <- See what a real lesson looks like
 │   └── causal-inference/
